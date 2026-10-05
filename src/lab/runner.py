@@ -13,11 +13,10 @@ from langchain_core.messages import AIMessage, ToolMessage
 from .grading import grade                                                      # có sẵn
 from .tasks import ROOT, get_task, hash_dir, list_tasks, prepare_sandbox         # có sẵn
 
-# Bốn điều kiện thí nghiệm (condition). `skills_dir` là thư mục skill nguồn (tính từ thư mục gốc của lab).
+# Ba điều kiện thí nghiệm (condition). `skills_dir` là thư mục skill nguồn (tính từ thư mục gốc của lab).
 CONDITIONS = {
     "baseline": {"mode": "single", "skills_dir": None},
     "subagents": {"mode": "subagents", "skills_dir": None},
-    "skills-human": {"mode": "single", "skills_dir": "skills/human"},
     "skills-auto": {"mode": "single", "skills_dir": "skills/auto"},
 }
 

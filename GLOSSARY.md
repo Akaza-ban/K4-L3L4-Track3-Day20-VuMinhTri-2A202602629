@@ -23,7 +23,7 @@ Quy ước: thuật ngữ được dịch sang tiếng Việt kèm bản gốc t
 | Họ tác vụ | task family | Nhóm tác vụ cùng loại kỹ năng (code, data, logs). |
 | Tác vụ học | learning task | Tác vụ được dùng để quan sát lỗi và rút skill. Tương đương tập huấn luyện. |
 | Tác vụ đánh giá | evaluation task | Tác vụ giữ riêng để đo skill có tổng quát hóa hay không. Tương đương tập kiểm thử. |
-| Điều kiện thí nghiệm | condition | Một cấu hình tác tử: `baseline`, `subagents`, `skills-human`, `skills-auto`. |
+| Điều kiện thí nghiệm | condition | Một cấu hình tác tử: `baseline`, `subagents`, `skills-auto`. |
 | Đường cơ sở | baseline | Cấu hình mặc định, làm mốc so sánh. |
 | Phép kiểm tra | check | Một điều kiện tự động của `check.py`; điểm tác vụ là tỉ lệ check đạt. |
 | Chấm điểm từng phần | partial credit | Điểm bằng tỉ lệ check đạt, không chỉ đạt hoặc không đạt. |

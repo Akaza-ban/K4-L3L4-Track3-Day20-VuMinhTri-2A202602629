@@ -14,8 +14,8 @@ WRITE_PARTIAL = AIMessage(content="", tool_calls=[{
 }])
 
 
-def test_four_conditions_defined():
-    assert set(CONDITIONS) == {"baseline", "subagents", "skills-human", "skills-auto"}
+def test_three_conditions_defined():
+    assert set(CONDITIONS) == {"baseline", "subagents", "skills-auto"}
 
 
 def test_run_task_saves_a_complete_record(tmp_path, scripted):

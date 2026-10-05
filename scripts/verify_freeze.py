@@ -3,12 +3,12 @@
 
     python scripts/verify_freeze.py
 
-For every run of the conditions `skills-human` and `skills-auto` in results/ it verifies that
+For every run of the condition `skills-auto` in results/ it verifies that
   1. the git tag `freeze` exists and `skills/` has not changed since the tag,
   2. `skills_sha256` in run.json equals the hash of the frozen skills folder (the run used exactly the frozen skills),
   3. the run started after the tag was created, and `skills_modified` is false,
   4. a commit whose message starts with `hypotheses` exists before the tag, and report/REPORT.md in that commit
-     has the four hypotheses H1-H4 filled in.
+     has the three hypotheses H1-H3 filled in.
 Exit code 0 = everything fine.
 """
 import json
@@ -19,7 +19,7 @@ from pathlib import Path
 
 from lab.tasks import ROOT, hash_skills
 
-SOURCES = {"skills-human": ROOT / "skills" / "human", "skills-auto": ROOT / "skills" / "auto"}
+SOURCES = {"skills-auto": ROOT / "skills" / "auto"}
 
 
 def git(*args) -> subprocess.CompletedProcess:
@@ -41,10 +41,10 @@ def main() -> int:
         problems.append("no `hypotheses` commit before the freeze tag")
     else:
         report = git("show", f"{hyp[0]}:report/REPORT.md").stdout
-        filled = [ln for ln in report.splitlines() if ln.lstrip("- ").startswith(("H1", "H2", "H3", "H4"))
+        filled = [ln for ln in report.splitlines() if ln.lstrip("- ").startswith(("H1", "H2", "H3"))
                   and ln.split(":", 1)[-1].strip() and ":" in ln]
-        if len(filled) < 4:
-            problems.append("report/REPORT.md in the `hypotheses` commit has fewer than 4 filled hypotheses")
+        if len(filled) < 3:
+            problems.append("report/REPORT.md in the `hypotheses` commit has fewer than 3 filled hypotheses")
     n = 0
     for condition, src in SOURCES.items():
         frozen = hash_skills(src)

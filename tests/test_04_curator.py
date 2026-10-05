@@ -1,4 +1,4 @@
-"""GUIDE Phần 4 - curate_skills (offline, zero token). validate_skill and parse_skill_blocks are tested in test_01."""
+"""GUIDE Phần 3 - curate_skills (offline, zero token). validate_skill and parse_skill_blocks are tested in test_01."""
 import json
 
 from langchain_core.messages import AIMessage

@@ -1,4 +1,4 @@
-"""PROVIDED - do not edit. Builds the comparison table of GUIDE Part 5.
+"""PROVIDED - do not edit. Builds the comparison table of GUIDE Phần 4.3.
 
     python -m lab.compare > report/table.md
 """
@@ -6,14 +6,14 @@ import argparse
 import json
 from pathlib import Path
 
-ORDER = ["baseline", "subagents", "skills-human", "skills-auto"]
+ORDER = ["baseline", "subagents", "skills-auto"]
 
 
 def load_runs(results_dir="results") -> list[dict]:
     """Read every <results_dir>/<condition>/<task>/run.json.
 
     The condition is the NAME OF THE DIRECTORY, and only the four known conditions are read, so a renamed
-    backup folder such as results/skills-human-v1 is ignored.
+    backup folder such as results/skills-auto-dev is ignored.
     """
     runs = []
     for p in sorted(Path(results_dir).glob("*/*/run.json")):

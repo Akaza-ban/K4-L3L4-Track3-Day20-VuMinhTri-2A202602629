@@ -67,8 +67,8 @@ def test_compare_table_columns_cells_and_means():
         return {"task": task, "condition": cond, "role": task.split("-")[1], "passed": passed, "total": 5,
                 "score": passed / 5, "tokens": {"total": tokens}, "skills_read": skills_read}
     table = build_table([run("code-learn", "baseline", 1), run("code-eval", "baseline", 2),
-                         run("code-learn", "skills-human", 4, skills_read=1), run("code-eval", "skills-human", 3, 3000)])
-    assert "skills-human" in table.splitlines()[0] and "subagents" not in table.splitlines()[0]
+                         run("code-learn", "skills-auto", 4, skills_read=1), run("code-eval", "skills-auto", 3, 3000)])
+    assert "skills-auto" in table.splitlines()[0] and "subagents" not in table.splitlines()[0]
     assert "| code-eval | 2/5 | 3/5 |" in table
     assert table.index("code-learn") < table.index("code-eval")
     assert "0.20" in table and "0.80" in table and "0.40" in table and "0.60" in table
@@ -122,11 +122,11 @@ def test_parse_skill_blocks_survives_missing_end_markers():
 
 def test_compare_ignores_renamed_backup_folders(tmp_path):
     import json
-    for folder in ("skills-human", "skills-human-v1"):
+    for folder in ("skills-auto", "skills-auto-v1"):
         d = tmp_path / folder / "code-learn"
         d.mkdir(parents=True)
-        (d / "run.json").write_text(json.dumps({"task": "code-learn", "condition": "skills-human", "role": "learn",
+        (d / "run.json").write_text(json.dumps({"task": "code-learn", "condition": "skills-auto", "role": "learn",
                                                  "passed": 1 if folder.endswith("v1") else 9, "total": 10, "score": 0.5,
                                                  "tokens": {"total": 1}}))
     runs = load_runs(tmp_path)
-    assert [r["passed"] for r in runs] == [9] and runs[0]["condition"] == "skills-human"
+    assert [r["passed"] for r in runs] == [9] and runs[0]["condition"] == "skills-auto"
