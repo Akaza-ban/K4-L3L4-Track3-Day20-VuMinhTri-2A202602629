@@ -1,0 +1,74 @@
+{
+  "task": "logs-eval",
+  "condition": "skills-auto",
+  "role": "eval",
+  "error": "GraphRecursionError: Recursion limit of 50 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT",
+  "timestamp": "2026-10-06T08:16:02.391053+00:00",
+  "skills_sha256": "51a20ab7ae3e93f9af86ea0b14f3f952db0b8860de5581dad539f748d0a14d1b",
+  "seconds": 24.3,
+  "tokens": {
+    "input": 236603,
+    "output": 1375,
+    "total": 237978
+  },
+  "tool_calls": 29,
+  "subagent_calls": 0,
+  "skills_read": 3,
+  "skills_modified": false,
+  "final_message": "total 9\ndrwxr-xr-x 1 Admin 197121    0 Oct  6 09:46 .\ndrwxr-xr-x 1 Admin 197121    0 Oct  6 15:16 ..\n-rw-r--r-- 1 Admin 197121  521 Oct  6 09:46 README.md\n-rw-r--r-- 1 Admin 197121 5975 Oct  6 09:46 worker.log\n# worker.log - format\n\nEach log entry starts with a line:\n\n    [<date> <time> <offset>] <service> | <LEVEL> | <message>\n\n- The offset is a UTC offset such as `+0700`, `-0500` or `+0000`.\n- Error-class levels are ERROR, SEVERE and FATAL. Level names are not always written in upper case.\n- Lines that start with spaces belong to the entry above them (for example a JSON payload dump).\n- A line `-- last message repeated N times --` means the entry above it (together with its extra lines) occurred N more times.\n\n[Command succeeded with exit code 0]",
+  "score": 0.0,
+  "passed": 0,
+  "total": 10,
+  "checks": [
+    {
+      "name": "valid_structure",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "entry_count",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "timestamps_utc",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "levels_uppercase",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "repeat_counts",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "counts_by_service",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "rule_service_names",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "rule_sorted_errors",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "rule_schema_header",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "rule_source_line",
+      "passed": false,
+      "detail": ""
+    }
+  ]
+}
