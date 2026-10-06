@@ -1,0 +1,69 @@
+{
+  "task": "logs-learn",
+  "condition": "baseline",
+  "role": "learn",
+  "error": null,
+  "timestamp": "2026-10-06T07:52:54.398752+00:00",
+  "skills_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "seconds": 22.9,
+  "tokens": {
+    "input": 169136,
+    "output": 2226,
+    "total": 171362
+  },
+  "tool_calls": 21,
+  "subagent_calls": 0,
+  "skills_read": 0,
+  "skills_modified": false,
+  "final_message": "I parsed `workspace/app.log` and wrote `workspace/errors.json`.\n\n**How I parsed it:**\n- **Entry detection:** each entry starts with a line matching `<ISO-8601 timestamp with offset> [<LEVEL>] <service>: <message>`. I used a regex that accepts `Z`, `+HH:MM`, and `-HH:MM` offsets, and any capitalisation of the level.\n- **Extra lines:** any line that isn't a new entry header and isn't a repeat marker is attached to the entry above it (e.g. traceback lines). The `exception` is the last such line, or `null` when there are none.\n- **Repeat markers:** a `-- last message repeated N times --` line adds N to the entry above it (after its extra lines). `repeat_count = 1 + sum(N)`.\n- **Filtering:** kept only entries whose level (upper-cased) is `ERROR` or `CRITICAL`; dropped INFO/WARN/WARNING/DEBUG. Note that INFO lines like \"retrying after ERROR 502\" were correctly excluded since the level field, not the message text, decides.\n- **Timestamps:** converted each entry time to UTC and formatted `YYYY-MM-DDTHH:MM:SSZ` (e.g. `2024-04-30T22:06:40-05:00` → `2024-05-01T03:06:40Z`).\n- **Counts:** `counts_by_service` sums `repeat_count` per service.\n\n**Result:** 25 error/critical entries; `counts_by_service` = inventory-service 13, auth-service 8, payment-service 8 (total 29, matching the sum of all `repeat_count` values).\n\nFiles created: `workspace/errors.json`.",
+  "score": 0.6666666666666666,
+  "passed": 6,
+  "total": 9,
+  "checks": [
+    {
+      "name": "valid_structure",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "entry_count",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "timestamps_utc",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "exception_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "repeat_counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "counts_by_service",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "rule_service_names",
+      "passed": false,
+      "detail": "RULE: service names in the output are lower-case with '-' replaced by '_' (payment-service -> payment_service)."
+    },
+    {
+      "name": "rule_sorted_errors",
+      "passed": false,
+      "detail": "RULE: `errors` is sorted by service, then by timestamp_utc, ascending."
+    },
+    {
+      "name": "rule_schema_header",
+      "passed": false,
+      "detail": "RULE: the top-level object has \"schema_version\": 2 and \"generated_by\": \"log-triage\"."
+    }
+  ]
+}

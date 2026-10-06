@@ -32,4 +32,8 @@ def make_model():
             )
         from langchain_openai import ChatOpenAI
         return ChatOpenAI(base_url=endpoint, api_key=key, model=deployment, temperature=temperature, timeout=120)
-    return init_chat_model(os.getenv("LAB_MODEL", "deepseek:deepseek-chat"), temperature=temperature)
+    return init_chat_model(
+        os.getenv("LAB_MODEL", "deepseek:deepseek-chat"),
+        temperature=temperature,
+        max_retries=5,
+    )
